@@ -6,25 +6,31 @@
   "scripts": {
     "dev": "tsx --watch ./src/server.ts",
     "start": "node build/server.js",
-    "build": "tsup src --out-dir build"
+    "build": "tsup src --out-dir build",
+    "db:setup": "prisma migrate dev && prisma generate"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "devDependencies": {
     "@eslint/js": "10.0.1",
     "@types/node": "^26.0.0",
+    "@types/pg": "8.20.0",
     "eslint": "10.5.0",
     "globals": "17.7.0",
+    "prisma": "7.8.0",
     "tsup": "^8.5.1",
     "tsx": "^4.22.4",
     "typescript": "^6.0.3",
     "typescript-eslint": "8.62.0"
   },
   "dependencies": {
+    "@prisma/adapter-pg": "7.8.0",
+    "@prisma/client": "7.8.0",
     "dotenv": "17.4.2",
     "fastify": "^5.8.5",
+    "pg": "8.22.0",
     "zod": "4.4.3"
   }
 }
