@@ -2,25 +2,25 @@ import { beforeEach, describe, expect, it, vi, afterEach } from 'vitest';
 import { CheckInService } from './check-in-service';
 import { InMemoryCheckInsRepository } from '../repositories/in-memory/in-memory-check-ins-repository';
 import { InMemoryGymsRepository } from '../repositories/in-memory/in-memory-gyms-repository';
-import { Decimal } from '@prisma/client/runtime/index-browser';
+import { MaxNumberOfCheckInsError } from '@/errors/max-number-of-check-ins-error';
+import { MaxDistanceError } from '@/errors/max-distance-error';
 
 let checkInRepository: InMemoryCheckInsRepository;
 let gymsInRepository: InMemoryGymsRepository;
 let checkInService: CheckInService;
 
 describe('Check-in Service', () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     checkInRepository = new InMemoryCheckInsRepository();
     gymsInRepository = new InMemoryGymsRepository();
     checkInService = new CheckInService(checkInRepository, gymsInRepository);
 
-    gymsInRepository.gyms.push({
-      id: 'ee0d8543-0788-4504-901c-38418b039859',
+    await gymsInRepository.create({
       title: 'Academia Javascript',
       description: 'Treinar JS',
       phone: '11999999999',
-      latitude: Decimal(-23.6869165),
-      longitude: Decimal(-46.6222736),
+      latitude: -23.6869165,
+      longitude: -46.6222736,
     });
 
     vi.useFakeTimers();
@@ -59,7 +59,7 @@ describe('Check-in Service', () => {
         userLatitude: -23.6869165,
         userLongitude: -46.6222736,
       }),
-    ).rejects.toBeInstanceOf(Error);
+    ).rejects.toBeInstanceOf(MaxNumberOfCheckInsError);
   });
 
   it('should be able to check in twice but in diferent day', async () => {
@@ -91,6 +91,6 @@ describe('Check-in Service', () => {
         userLatitude: -23.4612784,
         userLongitude: -47.3130819,
       }),
-    ).rejects.toBeInstanceOf(Error);
+    ).rejects.toBeInstanceOf(MaxDistanceError);
   });
 });
