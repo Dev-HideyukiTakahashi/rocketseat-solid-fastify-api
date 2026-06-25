@@ -28,7 +28,7 @@ describe('Authenticate Service', () => {
   });
 
   it('should not be able to authenticate with wrong email', async () => {
-    expect(() =>
+    await expect(() =>
       authenticateService.execute({
         email: 'not-exists-in-memory@test.com',
         password: '123456',
