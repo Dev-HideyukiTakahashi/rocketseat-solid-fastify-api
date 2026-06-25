@@ -43,7 +43,7 @@ describe('Authenticate Service', () => {
       passwordHash: await hash('123456', 6),
     });
 
-    expect(() =>
+    await expect(() =>
       authenticateService.execute({
         email: 'john-doe@test.com',
         password: '654321',
