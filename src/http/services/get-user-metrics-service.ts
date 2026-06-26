@@ -1,4 +1,4 @@
-import { InMemoryCheckInsRepository } from '../repositories/in-memory/in-memory-check-ins-repository';
+import { CheckInsRepository } from '../repositories/check-ins-repository';
 
 interface GetUserMetricsServiceRequest {
   userId: string;
@@ -9,7 +9,7 @@ interface GetUserMetricsServiceResponse {
 }
 
 export class GetUserMetricsService {
-  constructor(private checkInRepository: InMemoryCheckInsRepository) {}
+  constructor(private checkInRepository: CheckInsRepository) {}
 
   async execute({ userId }: GetUserMetricsServiceRequest): Promise<GetUserMetricsServiceResponse> {
     const checkInsCount = await this.checkInRepository.countByUserId(userId);

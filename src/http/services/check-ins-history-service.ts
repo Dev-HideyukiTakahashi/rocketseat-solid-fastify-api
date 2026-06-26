@@ -1,5 +1,5 @@
 import { CheckIn } from 'generated/prisma/client';
-import { InMemoryCheckInsRepository } from '../repositories/in-memory/in-memory-check-ins-repository';
+import { CheckInsRepository } from '../repositories/check-ins-repository';
 
 interface CheckInsHistoryServiceRequest {
   userId: string;
@@ -11,7 +11,7 @@ interface CheckInsHistoryServiceResponse {
 }
 
 export class CheckInsHistoryService {
-  constructor(private checkInRepository: InMemoryCheckInsRepository) {}
+  constructor(private checkInRepository: CheckInsRepository) {}
 
   async execute({
     userId,

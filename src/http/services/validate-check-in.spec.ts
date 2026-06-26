@@ -1,16 +1,16 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { InMemoryCheckInsRepository } from '../repositories/in-memory/in-memory-check-ins-repository';
-import { ValidateCheckIn } from './validate-check-in-service';
+import { ValidateCheckInsService } from './validate-check-in-service';
 import { ResourceNotFoundError } from '@/errors/resource-not-found-error';
 import { LateCheckInValidationError } from '@/errors/late-check-in-validation-error';
 
 let checkInRepository: InMemoryCheckInsRepository;
-let validateCheckIn: ValidateCheckIn;
+let validateCheckIn: ValidateCheckInsService;
 
 describe('Validate Check-in Service', () => {
   beforeEach(async () => {
     checkInRepository = new InMemoryCheckInsRepository();
-    validateCheckIn = new ValidateCheckIn(checkInRepository);
+    validateCheckIn = new ValidateCheckInsService(checkInRepository);
 
     vi.useFakeTimers();
   });

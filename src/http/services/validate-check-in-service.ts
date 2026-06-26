@@ -12,7 +12,7 @@ interface ValidateCheckInResponse {
   checkIn: CheckIn;
 }
 
-export class ValidateCheckIn {
+export class ValidateCheckInsService {
   constructor(private checkInRepository: CheckInsRepository) {}
 
   async execute({ checkInId }: ValidateCheckInRequest): Promise<ValidateCheckInResponse> {
